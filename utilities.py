@@ -32,3 +32,14 @@ def generate_all_moves():
           uci_moves.append(move.uci())
       board.remove_piece_at(square)
   return sorted(list(set(uci_moves+all_promotions)))
+
+
+pieces=np.array([chess.PAWN,chess.ROOK,chess.KNIGHT,chess.BISHOP,chess.KING,chess.QUEEN])
+colors=np.array([chess.WHITE,chess.BLACK])
+
+def get_3d_array(board):
+  array=''
+  for color in colors:
+    for piece in pieces:
+      array+=bin(board.pieces(piece,color))[2:].zfill(64)
+  return np.array(list(array),dtype=int).reshape(12,8,8)
